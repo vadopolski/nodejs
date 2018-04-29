@@ -7,11 +7,11 @@ var appGET = express();
 
 appGET.use(express.static('public'));
 appGET.get('/index.htm', function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
     res.sendFile( __dirname + "/" + "index.htm" );
 });
 
 appGET.get('/process_get', function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
     var header = "<form action=\"http://localhost:8081/\process_post/\" method=\"post\">";
     var inputFirstName = "</legend>First name:<br>" +
         "<input type=\"text\" name=\"firstname\" value=\"Mickey\">";
@@ -30,8 +30,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 appGET.post('/process_post', urlencodedParser, function (req, res) {
     // Prepare output in JSON format
     response = {
-        first_name:req.body.first_name,
-        last_name:req.body.last_name
+        first_name:req.body.firstname,
+        last_name:req.body.lastname
     };
     console.log(response);
     res.end(JSON.stringify(response));
